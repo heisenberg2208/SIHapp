@@ -1,11 +1,14 @@
 package com.example.devendra.sihapp;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +20,13 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +46,21 @@ public class MainActivity extends AppCompatActivity {
     private Button btnSignOut;
     private TextView tvType;
 
+    private StorageReference storageReference;
+    private FirebaseFirestore firestore;
+    private RecyclerView rcv;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference fireRef;
+
+    LinearLayoutManager linearLayoutManager;
+    List<Crop> cropsList;
+    private CropsListAdapter cropsListAdapter;
+    public static Context mcontext;
+    public static Context getContext()
+    {
+        return mcontext;
+
+    }
 
 
 
@@ -68,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
                 if(user != null)
                 {
 
-                    if(user.getDisplayName()!=null)
-                    {
-                        if (user.getDisplayName().equals("")) {
+
+
+                        if (user.getDisplayName()==null || user.getDisplayName().equals("")) {
 
                             LayoutInflater layoutInflaterAndroid = LayoutInflater.from(MainActivity.this);
                             View mView = layoutInflaterAndroid.inflate(R.layout.pop_layout, null, false);
@@ -105,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         Toast.makeText(MainActivity.this, "Welcome: " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
 
-                    }
+
                 }
                 else
                 {
@@ -128,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
         Intent i = getIntent();
         String type = i.getStringExtra("type");
         tvType.setText(type);
+
+
 
 
     }
