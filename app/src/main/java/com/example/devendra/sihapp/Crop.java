@@ -20,7 +20,7 @@ public class Crop implements Serializable{
     }
 
 
-    public Crop(String Description_short, String Title, String image,String description_long,int counter,int time){
+    public Crop(String Description_short, String Title, int counter,String description_long,String image,int time){
         this.Title = Title;
         this.Description_short = Description_short;
         this.description_long = description_long;

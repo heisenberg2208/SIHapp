@@ -87,33 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 if (e != null) {
                     Log.d("Erroe", e.toString());
                 } else {
-                    fireRef.addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            String var = dataSnapshot.getValue(String.class);
-                            Toast.makeText(MainActivity.this, var, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
                     for (DocumentChange doc : documentSnapshots.getDocumentChanges()) {
                         if (doc.getType() == DocumentChange.Type.ADDED) {
                             Crop crop = doc.getDocument().toObject(Crop.class);
